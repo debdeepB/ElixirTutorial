@@ -2,16 +2,19 @@ defmodule KV.BucketTest do
   use ExUnit.Case, async: true
 
   setup do
-    {:ok, bucket_agent} = KV.BucketAgent.start_link([])
+    {:ok, bucket} = KV.Bucket.start_link([])
     {:ok, bucket_task} = KV.BucketTask.start_link
-    %{bucket_agent: bucket_agent, bucket_task: bucket_task}
+    %{bucket: bucket, bucket_task: bucket_task}
   end
 
-  test "stores values by key using Agent", %{bucket_agent: bucket_agent} do
-    assert KV.BucketAgent.get(bucket_agent, "milk") == nil
+  test "stores values by key using Agent", %{bucket: bucket} do
+    assert KV.Bucket.get(bucket, "milk") == nil
 
-    KV.BucketAgent.put(bucket_agent, "milk", 3)
-    assert KV.BucketAgent.get(bucket_agent, "milk") == 3
+    KV.Bucket.put(bucket, "milk", 3)
+    assert KV.Bucket.get(bucket, "milk") == 3
+
+    assert KV.Bucket.delete(bucket, "milk") == 3
+    assert KV.Bucket.get(bucket, "milk") == nil
   end
 
   test "stores values by key using Tasks", %{bucket_task: bucket_task} do
