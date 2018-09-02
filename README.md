@@ -1,6 +1,18 @@
 # KV
 
-**TODO: Add description**
+Clone the repository
+
+```bash
+git clone https://github.com/debdeepB/ElixirTutorial.git
+cd ElixirTutorial
+```
+
+Run tests
+```bash
+mix test
+```
+
+
 
 ## Installation
 
