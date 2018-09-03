@@ -46,6 +46,5 @@ defmodule KV.BucketTask do
       {:put, key, value} ->
         loop(Map.put(map, key, value))
     end
-    
   end
 end
