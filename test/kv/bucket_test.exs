@@ -24,4 +24,8 @@ defmodule KV.BucketTest do
     IO.inspect flush()
   end
 
+  test "are temporary workers" do
+    assert Supervisor.child_spec(KV.Bucket, []).restart == :temporary
+  end
+
 end
