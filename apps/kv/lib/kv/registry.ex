@@ -6,7 +6,8 @@ defmodule KV.Registry do
   Start the registry
   """
   def start_link(opts) do
-    server = Keyword.fetch!(opts, :name) # same as server = opts[:name]
+    # same as server = opts[:name]
+    server = Keyword.fetch!(opts, :name)
     GenServer.start_link(__MODULE__, server, opts)
   end
 
@@ -47,12 +48,13 @@ defmodule KV.Registry do
     case lookup(names, name) do
       {:ok, pid} ->
         {:reply, pid, {names, refs}}
-    :error ->
-      {:ok, pid} = DynamicSupervisor.start_child(KV.BucketSupervisor, KV.Bucket)
-      ref = Process.monitor(pid)
-      refs = Map.put(refs, ref, name)
-      :ets.insert(names, {name, pid})
-      {:reply, pid, {names, refs}}
+
+      :error ->
+        {:ok, pid} = DynamicSupervisor.start_child(KV.BucketSupervisor, KV.Bucket)
+        ref = Process.monitor(pid)
+        refs = Map.put(refs, ref, name)
+        :ets.insert(names, {name, pid})
+        {:reply, pid, {names, refs}}
     end
   end
 
@@ -65,5 +67,4 @@ defmodule KV.Registry do
   def handle_info(_msg, state) do
     {:noreply, state}
   end
-  
 end

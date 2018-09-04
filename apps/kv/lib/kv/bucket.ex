@@ -24,7 +24,6 @@ defmodule KV.Bucket do
     Agent.update(bucket, &Map.put(&1, key, value))
   end
 
-
   @doc """
   Deletes the key
   """
@@ -35,14 +34,15 @@ end
 
 defmodule KV.BucketTask do
   def start_link do
-    Task.start_link fn -> loop(%{}) end
+    Task.start_link(fn -> loop(%{}) end)
   end
 
   def loop(map) do
     receive do
       {:get, key, caller} ->
-        send caller, Map.get(map, key)
+        send(caller, Map.get(map, key))
         loop(map)
+
       {:put, key, value} ->
         loop(Map.put(map, key, value))
     end

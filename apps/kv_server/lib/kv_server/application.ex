@@ -12,7 +12,8 @@ defmodule KVServer.Application do
     children = [
       # Starts a worker by calling: KVServer.Worker.start_link(arg)
       # {KVServer.Worker, arg},
-      {Task, fn -> KVServer.accept(port) end}
+      {Task.Supervisor, name: KVServer.TaskSupervisor},
+      Supervisor.child_spec({Task, fn -> KVServer.accept(port) end}, restart: :permanent)
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

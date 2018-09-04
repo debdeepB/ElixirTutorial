@@ -4,7 +4,7 @@ defmodule KV.Supervisor do
   def start_link(opts) do
     Supervisor.start_link(__MODULE__, :ok, opts)
   end
-  
+
   @doc """
   We are going to solve this issue by defining a new supervisor that will
   spawn and supervise all buckets. Opposite to the previous Supervisor we 
@@ -12,7 +12,6 @@ defmodule KV.Supervisor do
   dynamically.
   """
   def init(:ok) do
-
     children = [
       {KV.Registry, name: KV.Registry},
       {DynamicSupervisor, name: KV.BucketSupervisor, strategy: :one_for_one}
@@ -20,5 +19,4 @@ defmodule KV.Supervisor do
 
     Supervisor.init(children, strategy: :one_for_all)
   end
-  
 end
