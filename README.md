@@ -1,6 +1,6 @@
 # KvUmbrella
 
-Just following the [official documentation](https://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html) to understand elixir Task, Agent, GenServer, Supervisor.
+Just following the [MIX and OTP guide](https://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html) from the Elixir official documentation to understand elixir Task, Agent, GenServer, Supervisor.
 
 Clone the repository
 
