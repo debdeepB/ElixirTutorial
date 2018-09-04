@@ -13,24 +13,19 @@ defmodule KVServerTest do
   end
 
   test "server interaction", %{socket: socket} do
-    assert send_and_recv(socket, "UNKNOWN shopping\r\n") ==
-           "UNKNOWN COMMAND\r\n"
-    
-    assert send_and_recv(socket, "GET shopping eggs\r\n") ==
-    "NOT FOUND\r\n"
+    assert send_and_recv(socket, "UNKNOWN shopping\r\n") == "UNKNOWN COMMAND\r\n"
 
-    assert send_and_recv(socket, "CREATE shopping\r\n") ==
-           "OK\r\n"
+    assert send_and_recv(socket, "GET shopping eggs\r\n") == "NOT FOUND\r\n"
 
-    assert send_and_recv(socket, "PUT shopping eggs 3\r\n") ==
-           "OK\r\n"
+    assert send_and_recv(socket, "CREATE shopping\r\n") == "OK\r\n"
+
+    assert send_and_recv(socket, "PUT shopping eggs 3\r\n") == "OK\r\n"
 
     # GET returns two lines
     assert send_and_recv(socket, "GET shopping eggs\r\n") == "3\r\n"
     assert send_and_recv(socket, "") == "OK\r\n"
 
-    assert send_and_recv(socket, "DELETE shopping eggs\r\n") ==
-           "OK\r\n"
+    assert send_and_recv(socket, "DELETE shopping eggs\r\n") == "OK\r\n"
 
     # GET returns two lines
     assert send_and_recv(socket, "GET shopping eggs\r\n") == "\r\n"

@@ -76,5 +76,4 @@ defmodule KVServer.Command do
       :error -> {:error, :not_found}
     end
   end
-
 end
